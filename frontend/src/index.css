@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #08090a;
+  --color-panel: #121518;
+  --color-steel: #262c33;
+  --color-steel-light: #3a424c;
+  --color-muted: #8b96a3;
+  --color-paper: #d9dde2;
+  --color-alert: #e5243b;
+  --color-alert-dim: #6b1520;
+  --color-amber: #f5a524;
+  --color-coop: #22c55e;
+
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-type: 'Special Elite', 'Courier New', ui-monospace, monospace;
+}
+
+html,
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  margin: 0;
+  min-height: 100vh;
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse at top, rgb(229 36 59 / 0.08), transparent 60%),
+    radial-gradient(ellipse at bottom, rgb(38 44 51 / 0.5), transparent 70%);
+  background-attachment: fixed;
+}
+
+/* CRT scanlines over the whole app; pointer-events off so it never blocks clicks */
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0.025) 0,
+    rgb(255 255 255 / 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgb(0 0 0 / 0.55));
+}
+
+.label {
+  font-family: var(--font-type);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.stamp {
+  font-family: var(--font-type);
+  border: 3px solid currentColor;
+  padding: 0.1em 0.5em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  mask-image: repeating-linear-gradient(115deg, #000 0 6px, rgb(0 0 0 / 0.7) 6px 8px);
+}
+
+.caret::after {
+  content: '█';
+  margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+input[type='range'] {
+  accent-color: var(--color-alert);
+}
+
+select,
+input {
+  color-scheme: dark;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-steel-light);
+}
